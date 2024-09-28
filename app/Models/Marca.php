@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Marca extends Model
 {
+
     use HasFactory;
-    use SoftDeletes;
+    //use SoftDeletes;
+
+    protected $table = 'cor';
+
+    // Adicione os campos que podem ser atribuídos em massa
+    protected $fillable = ['nome'];
 
 }

@@ -3,85 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modelo;
-use App\Http\Controllers\Controller;
+use App\Models\Marca;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModeloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe a lista de modelos
     public function index()
     {
-        //
+        $modelos = Modelo::all();
+        return view('modelo.index', compact('modelos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para criar um novo modelo
     public function create()
     {
-        //
+        $marcas = Marca::all(); // Para exibir as marcas disponíveis no select
+        return view('modelo.create', compact('marcas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Salva um novo modelo
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'marca_id' => 'required|exists:marcas,id',
+        ]);
+
+        Modelo::create($request->all());
+        return redirect()->route('modelo.index')->with('success', 'Modelo criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Modelo  $modelo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Modelo $modelo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Modelo  $modelo
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para editar um modelo existente
     public function edit(Modelo $modelo)
     {
-        //
+        $marcas = Marca::all(); // Para permitir a mudança de marca ao editar
+        return view('modelo.edit', compact('modelo', 'marcas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Modelo  $modelo
-     * @return \Illuminate\Http\Response
-     */
+    // Atualiza um modelo existente
     public function update(Request $request, Modelo $modelo)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'marca_id' => 'required|exists:marcas,id',
+        ]);
+
+        $modelo->update($request->all());
+        return redirect()->route('modelo.index')->with('success', 'Modelo atualizado com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Modelo  $modelo
-     * @return \Illuminate\Http\Response
-     */
+    // Deleta um modelo
     public function destroy(Modelo $modelo)
     {
-        //
+        $modelo->delete();
+        return redirect()->route('modelo.index')->with('success', 'Modelo deletado com sucesso.');
     }
 }

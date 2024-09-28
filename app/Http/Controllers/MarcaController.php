@@ -3,85 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MarcaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe a lista de marcas
     public function index()
     {
-        //
+        $marcas = Marca::all();
+        return view('marca.index', compact('marcas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para criar uma nova marca
     public function create()
     {
-        //
+        return view('marca.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Salva uma nova marca
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:50',
+        ]);
+
+        Marca::create($request->all());
+        return redirect()->route('marca.index')->with('success', 'Marca criada com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Marca $marca)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para editar uma marca existente
     public function edit(Marca $marca)
     {
-        //
+        return view('marca.edit', compact('marca'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
+    // Atualiza uma marca existente
     public function update(Request $request, Marca $marca)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:50',
+        ]);
+
+        $marca->update($request->all());
+        return redirect()->route('marca.index')->with('success', 'Marca atualizada com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
+    // Deleta uma marca
     public function destroy(Marca $marca)
     {
-        //
+        $marca->delete();
+        return redirect()->route('marca.index')->with('success', 'Marca deletada com sucesso.');
     }
 }

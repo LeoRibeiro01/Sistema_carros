@@ -3,85 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cor;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe a lista de cores
     public function index()
     {
-        //
+        $cors = Cor::all();
+        return view('cor.index', compact('cors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para criar uma nova cor
     public function create()
     {
-        //
+        return view('cor.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Salva uma nova cor
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:50',
+        ]);
+
+        Cor::create($request->all());
+        return redirect()->route('cor.index')->with('success', 'Cor criada com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cor  $cor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cor $cor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cor  $cor
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para editar uma cor existente
     public function edit(Cor $cor)
     {
-        //
+        return view('cor.edit', compact('cor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cor  $cor
-     * @return \Illuminate\Http\Response
-     */
+    // Atualiza uma cor existente
     public function update(Request $request, Cor $cor)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:50',
+        ]);
+
+        $cor->update($request->all());
+        return redirect()->route('cor.index')->with('success', 'Cor atualizada com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cor  $cor
-     * @return \Illuminate\Http\Response
-     */
+    // Deleta uma cor
     public function destroy(Cor $cor)
     {
-        //
+        $cor->delete();
+        return redirect()->route('cor.index')->with('success', 'Cor deletada com sucesso.');
     }
 }

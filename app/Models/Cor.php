@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cor extends Model
 {
     use HasFactory;
+
+    protected $table = 'cor';
+
+    // Adicione os campos que podem ser atribuídos em massa
+    protected $fillable = ['nome'];
 }

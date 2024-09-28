@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarroController;
-//use App\Http\Controllers\CorController;
+use App\Http\Controllers\CorController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ModeloController;
 use Illuminate\Support\Facades\Route;

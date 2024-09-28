@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Modelo extends Model
 {
+
+
     use HasFactory;
-    use SoftDeletes;
+    //use SoftDeletes;
+
+    protected $fillable = ['name', 'marca_id']; // Define os campos que podem ser preenchidos
+
 
 }
