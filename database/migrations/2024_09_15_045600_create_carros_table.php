@@ -19,11 +19,11 @@ class CreateCarrosTable extends Migration
             $table->string('placa', 8);
             $table->unsignedBigInteger('modelo_id');
             $table->unsignedBigInteger('estado_id');
-            //$table->unsignedBigInteger('cor_id');
+            $table->unsignedBigInteger('cor_id');
 
             $table->foreign('modelo_id')->references('id')->on('modelos');
             $table->foreign('estado_id')->references('id')->on('estados');
-            //$table->foreign('cor_id')->references('id')->on('cors');
+            $table->foreign('cor_id')->references('id')->on('cors');
             $table->timestamps();
         });
     }

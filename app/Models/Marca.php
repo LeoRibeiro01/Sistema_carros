@@ -12,7 +12,7 @@ class Marca extends Model
     use HasFactory;
     //use SoftDeletes;
 
-    protected $table = 'cor';
+    protected $table = 'marcas';
 
     // Adicione os campos que podem ser atribuídos em massa
     protected $fillable = ['nome'];

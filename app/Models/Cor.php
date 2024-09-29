@@ -9,8 +9,7 @@ class Cor extends Model
 {
     use HasFactory;
 
-    protected $table = 'cor';
+    protected $table = 'cors';
 
-    // Adicione os campos que podem ser atribuídos em massa
     protected $fillable = ['nome'];
 }

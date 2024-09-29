@@ -3,85 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carro;
-use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Modelo;
+use App\Models\Cor;
+use App\Models\Marca;
+use App\Models\Estado;
 use Illuminate\Http\Request;
 
 class CarroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe a lista de carros
     public function index()
     {
-        //
+        $carros = Carro::with(['modelo', 'cor', 'estado'])->get();
+        return view('carro.index', compact('carros'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para criar um novo carro
     public function create()
-    {
-        //
-    }
+{
+    $marcas = Marca::all(); // Carrega todas as marcas
+    $modelos = Modelo::all(); // Carrega todos os modelos
+    $cores = Cor::all(); // Carrega todas as cores
+    $estados = Estado::all(); // Carrega todos os estados
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    return view('carro.create', compact('marcas', 'modelos', 'cores', 'estados'));
+}
+
+
+    // Salva um novo carro
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'placa' => 'required|string|min:8|max:8',
+            'modelo_id' => 'required|exists:modelos,id',
+            'estado_id' => 'required|exists:estados,id',
+            'cor_id' => 'required|exists:cors,id',
+        ]);
+
+        Carro::create($request->all());
+        return redirect()->route('carro.index')->with('success', 'Carro criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Carro  $carro
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Carro $carro)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Carro  $carro
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe o formulário para editar um carro existente
     public function edit(Carro $carro)
     {
-        //
+        $modelos = Modelo::all();
+        $cores = Cor::all();
+        $estados = Estado::all();
+        return view('carro.edit', compact('carro', 'modelos', 'cores', 'estados'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Carro  $carro
-     * @return \Illuminate\Http\Response
-     */
+    // Atualiza um carro existente
     public function update(Request $request, Carro $carro)
     {
-        //
+        $request->validate([
+            'placa' => 'required|string|min:8|max:8',
+            'modelo_id' => 'required|exists:modelos,id',
+            'estado_id' => 'required|exists:estados,id',
+            'cor_id' => 'required|exists:cors,id',
+        ]);
+
+        $carro->update($request->all());
+        return redirect()->route('carro.index')->with('success', 'Carro atualizado com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Carro  $carro
-     * @return \Illuminate\Http\Response
-     */
+    // Exibe os detalhes de um carro específico
+    public function show(Carro $carro)
+    {
+        return view('carro.show', compact('carro'));
+    }
+
+    // Deleta um carro
     public function destroy(Carro $carro)
     {
-        //
+        $carro->delete();
+        return redirect()->route('carro.index')->with('success', 'Carro deletado com sucesso.');
     }
 }

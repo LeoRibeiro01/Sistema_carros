@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CorSeeder::class,
             MarcaSeeder::class,
-            //EstadoSeeders::class,
-            //ModeloSeeders::class
+            EstadoSeeder::class,
+            ModeloSeeder::class
         ]);
     }
 }
