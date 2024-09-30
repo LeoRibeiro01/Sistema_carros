@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Carro;
 use App\Models\Modelo;
 use App\Models\Cor;
-use App\Models\Marca;
 use App\Models\Estado;
 use Illuminate\Http\Request;
 
@@ -20,15 +19,13 @@ class CarroController extends Controller
 
     // Exibe o formulário para criar um novo carro
     public function create()
-{
-    $marcas = Marca::all(); // Carrega todas as marcas
-    $modelos = Modelo::all(); // Carrega todos os modelos
-    $cores = Cor::all(); // Carrega todas as cores
-    $estados = Estado::all(); // Carrega todos os estados
+    {
+        $modelos = Modelo::with('marca')->get(); // Carrega todos os modelos com suas marcas
+        $cores = Cor::all(); // Carrega todas as cores
+        $estados = Estado::all(); // Carrega todos os estados
 
-    return view('carro.create', compact('marcas', 'modelos', 'cores', 'estados'));
-}
-
+        return view('carro.create', compact('modelos', 'cores', 'estados'));
+    }
 
     // Salva um novo carro
     public function store(Request $request)
@@ -47,7 +44,7 @@ class CarroController extends Controller
     // Exibe o formulário para editar um carro existente
     public function edit(Carro $carro)
     {
-        $modelos = Modelo::all();
+        $modelos = Modelo::with('marca')->get(); // Carrega os modelos com marcas para edição
         $cores = Cor::all();
         $estados = Estado::all();
         return view('carro.edit', compact('carro', 'modelos', 'cores', 'estados'));
