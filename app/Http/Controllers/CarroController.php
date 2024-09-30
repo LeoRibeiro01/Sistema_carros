@@ -75,5 +75,18 @@ class CarroController extends Controller
     {
         $carro->delete();
         return redirect()->route('carro.index')->with('success', 'Carro deletado com sucesso.');
+   }
+
+    public function test() {
+        // Instancia um Objeto da Classe Dompdf
+        $dompdf = new Dompdf();
+        // Carrega o HTML
+        $dompdf->loadHtml('hello world');
+        // (Opcional) Configura o Tamanho e Orientação da Página
+        $dompdf->setPaper('A4', 'landscape');
+        // Converte o HTML em PDF
+        $dompdf->render();
+        // Serializa o PDF para Navegador
+        $dompdf->stream();
     }
 }

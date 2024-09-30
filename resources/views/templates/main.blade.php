@@ -77,8 +77,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('marca.index') }}">Marcas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('modelo.index') }}">Modelos</a>
+                   <li class="nav-item">
+                       <a class="nav-link" href="{{ route('modelo.index') }}">Modelos</a>
                     </li>
                 </ul>
             </div>

@@ -16,3 +16,4 @@ Route::resource('carro', CarroController::class);
 Route::resource('cor', CorController::class);
 Route::resource('marca', MarcaController::class);
 Route::resource('modelo', ModeloController::class);
+
