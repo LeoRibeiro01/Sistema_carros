@@ -65,9 +65,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('home') }}">Home</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('carro.index') }}">Carros</a>
                     </li>
@@ -79,6 +77,12 @@
                     </li>
                    <li class="nav-item">
                        <a class="nav-link" href="{{ route('modelo.index') }}">Modelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Cadastro</a>
                     </li>
                 </ul>
             </div>

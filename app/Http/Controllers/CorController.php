@@ -48,6 +48,15 @@ class CorController extends Controller
         return redirect()->route('cor.index')->with('success', 'Cor atualizada com sucesso.');
     }
 
+    public function show($id)
+    {
+        // Encontra a cor pelo ID ou retorna um 404 se não for encontrada
+        $cor = Cor::findOrFail($id);
+
+        // Retorna a view 'cor.show' com os dados da cor
+        return view('cor.show', compact('cor'));
+    }
+
     // Deleta uma cor
     public function destroy(Cor $cor)
     {

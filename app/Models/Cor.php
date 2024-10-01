@@ -12,4 +12,10 @@ class Cor extends Model
     protected $table = 'cors';
 
     protected $fillable = ['nome'];
+
+    public function carros()
+    {
+        return $this->hasMany(Carro::class, 'cor_id'); // Certifique-se de que 'cor_id' é o campo correto
+    }
 }
+

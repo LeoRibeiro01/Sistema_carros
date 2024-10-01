@@ -17,4 +17,9 @@ class Marca extends Model
     // Adicione os campos que podem ser atribuídos em massa
     protected $fillable = ['nome'];
 
+    public function modelos()
+    {
+        return $this->hasMany(Modelo::class);
+    }
+
 }

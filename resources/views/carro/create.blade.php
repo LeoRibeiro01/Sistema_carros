@@ -40,6 +40,10 @@
         .btn-secondary {
             margin-top: 10px;
         }
+
+        .text-danger {
+            font-size: 0.875em;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +56,9 @@
             <div class="mb-3">
                 <label for="placa" class="form-label">Placa</label>
                 <input type="text" class="form-control" id="placa" name="placa" placeholder="Digite a placa do carro" required>
+                @error('placa')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Campo de Modelo -->
@@ -63,15 +70,37 @@
                         <option value="{{ $modelo->id }}">{{ $modelo->name }}: {{ $modelo->marca->nome }}</option>
                     @endforeach
                 </select>
+                @error('modelo_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            aluno@lab0304:~/LeoDW/Sistema_carros$ git config --local user.email "leonardo.ribeiro250307@gmail.com"
-            aluno@lab0304:~/LeoDW/Sistema_carros$ git config --local user.email "leonardo.ribeiro250307@gmail.com"l">Estado</label>
+
+            <!-- Campo de Cor -->
+            <div class="mb-3">
+                <label for="cor_id" class="form-label">Cor</label>
+                <select class="form-select" id="cor_id" name="cor_id" required>
+                    <option value="" selected disabled>Selecione uma Cor</option>
+                    @foreach($cors as $cor)
+                        <option value="{{ $cor->id }}">{{ $cor->nome }}</option>
+                    @endforeach
+                </select>
+                @error('cor_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Campo de Estado -->
+            <div class="mb-3">
+                <label for="estado_id" class="form-label">Estado</label>
                 <select class="form-select" id="estado_id" name="estado_id" required>
                     <option value="" selected disabled>Selecione um Estado</option>
                     @foreach($estados as $estado)
                         <option value="{{ $estado->id }}">{{ $estado->nome }}</option>
                     @endforeach
                 </select>
+                @error('estado_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Botões -->
@@ -81,5 +110,3 @@
     </div>
 </body>
 </html>
-
-

@@ -48,6 +48,15 @@ class MarcaController extends Controller
         return redirect()->route('marca.index')->with('success', 'Marca atualizada com sucesso.');
     }
 
+    public function show($id)
+    {
+        // Carrega a marca com seus modelos relacionados
+        $marca = Marca::with('modelos')->findOrFail($id);
+
+        // Retorna a view 'marca.show' com a marca carregada
+        return view('marca.show', compact('marca'));
+    }
+
     // Deleta uma marca
     public function destroy(Marca $marca)
     {

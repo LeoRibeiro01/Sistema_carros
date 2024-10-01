@@ -16,6 +16,11 @@ class Carro extends Model
         return $this->belongsTo(Modelo::class);
     }
 
+    public function marca()
+    {
+        return $this->modelo->marca(); // Ajuste se a relação estiver diferente
+    }
+
     public function estado()
     {
         return $this->belongsTo(Estado::class);
@@ -25,4 +30,5 @@ class Carro extends Model
     {
         return $this->belongsTo(Cor::class);
     }
+
 }

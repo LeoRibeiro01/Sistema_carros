@@ -15,22 +15,31 @@
             <div class="mb-3">
                 <label for="placa" class="form-label">Placa</label>
                 <input type="text" class="form-control" id="placa" name="placa" value="{{ $carro->placa }}" required>
+                @error('placa')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="modelo_id" class="form-label">Modelo</label>
                 <select class="form-select" id="modelo_id" name="modelo_id" required>
                     @foreach($modelos as $modelo)
-                        <option value="{{ $modelo->id }}" {{ $carro->modelo_id == $modelo->id ? 'selected' : '' }}>{{ $modelo->nome }}</option>
+                        <option value="{{ $modelo->id }}" {{ $carro->modelo_id == $modelo->id ? 'selected' : '' }}>{{ $modelo->name }}</option>
                     @endforeach
                 </select>
+                @error('modelo_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="cor_id" class="form-label">Cor</label>
                 <select class="form-select" id="cor_id" name="cor_id" required>
-                    @foreach($cores as $cor)
+                    @foreach($cors as $cor)
                         <option value="{{ $cor->id }}" {{ $carro->cor_id == $cor->id ? 'selected' : '' }}>{{ $cor->nome }}</option>
                     @endforeach
                 </select>
+                @error('cor_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="estado_id" class="form-label">Estado</label>
@@ -39,6 +48,9 @@
                         <option value="{{ $estado->id }}" {{ $carro->estado_id == $estado->id ? 'selected' : '' }}>{{ $estado->nome }}</option>
                     @endforeach
                 </select>
+                @error('estado_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Atualizar Carro</button>
             <a href="{{ route('carro.index') }}" class="btn btn-secondary">Voltar</a>

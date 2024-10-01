@@ -53,6 +53,15 @@ class ModeloController extends Controller
         return redirect()->route('modelo.index')->with('success', 'Modelo atualizado com sucesso.');
     }
 
+    public function show($id)
+    {
+        // Carrega o modelo com a relação de marca
+        $modelo = Modelo::with('marca')->findOrFail($id);
+
+        // Retorna a view 'modelo.show' com o modelo carregado
+        return view('modelo.show', compact('modelo'));
+    }
+
     // Deleta um modelo
     public function destroy(Modelo $modelo)
     {
